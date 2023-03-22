@@ -1,0 +1,79 @@
+---
+title: <span style="color:#FF7F00">**Reflexión_Debate**
+author: "  "
+institute: "  "
+date: "  "
+output: 
+  xaringan::moon_reader:
+    css: [rutgers-fonts, "styles.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: arta
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+
+c2="FF7F00" #color naranja-primario
+c1="034a94" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+
+
+# <span style="color:#FF7F00"> **Casos de consultoría**
+
+Los siguientes son casos son tomados del texto
+
+> Hyndman, R.J., & Athanasopoulos, G. (2021) Forecasting: principles and practice, 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3.
+
+los cuales, presentan diferentes tipos de situaciones de pronóstico y los desafíos asociados que a menudo surgen.
+
+Una vez se haya abordado la lectura de las situaciones, reflexione acerca de la siguiente pregunta:
+ 
+ <span style="color:-686868"> **¿Qué desafíos han enfrentado en el uso de información estructurada en el tiempo?** 
+ 
+y comparta sus ideas en el Debate.
+
+---
+
+
+## <span style="color:#034a94"> **Caso 1**
+
+<div style="text-align: justify"> 
+
+En este caso, el cliente era el gobierno federal australiano, que necesitaba pronosticar el presupuesto anual para el Esquema de Beneficios Farmacéuticos (PBS). El PBS proporciona un subsidio para muchos productos farmacéuticos que se venden en Australia y el gasto depende de lo que la gente compre durante el año. El gasto total fue de alrededor de $7.000$ millones de dólares australianos en $2009$ y se había subestimado en casi $1.000$ millones de dólares en cada uno de los dos años antes de que se pidiera la ayuda para desarrollar un enfoque de pronóstico más preciso.
+
+
+Para pronosticar el gasto total, es necesario pronosticar los volúmenes de ventas de cientos de grupos de productos farmacéuticos utilizando datos mensuales. Casi todos los grupos tenian tendencias y patrones estacionales. Los volúmenes de ventas de muchos grupos tenian saltos repentinos hacia arriba o hacia abajo debido a cambios en los medicamentos que se subvencionan. Los gastos de muchos grupos también tenian cambios repentinos debido a la disponibilidad de medicamentos más baratos de la competencia.
+
+Por lo tanto, necesitában encontrar un método de pronóstico que permitiera capturar la tendencia y la estacionalidad si estuvieran presentes y, al mismo tiempo, fuera resistente a los cambios repentinos en los patrones subyacentes. También se necesitaba que pudiese aplicarse automáticamente a un gran número de series temporales.
+
+<div>
+---
+
+## <span style="color:#034a94"> **Caso 2**
+
+<div style="text-align: justify"> 
+
+Una gran empresa de flotas de automóviles solicitó ayuda para pronosticar los valores de reventa de los vehículos. El modelo de negocio era que compran vehículos nuevos, los arriendan por tres años y luego los venden. Mejores pronósticos de los valores de venta de vehículos significarían un mejor control de las ganancias; así que comprender qué afecta los valores de reventa puede permitir que se desarrollen políticas de arrendamiento y ventas para maximizar las ganancias.
+
+En ese momento, los valores de reventa estaban siendo pronosticados por un grupo de especialistas. Desafortunadamente, vieron cualquier modelo estadístico como una amenaza para sus trabajos y no cooperaron en proporcionar información. No obstante, la empresa proporcionó una gran cantidad de datos sobre vehículos anteriores y sus eventuales valores de reventa.
+
+<div>
+---
+
+## <span style="color:#034a94"> **Caso 3**
+
+<div style="text-align: justify"> 
+
+En este proyecto, necesitában desarrollar un modelo para pronosticar el tráfico aéreo semanal de pasajeros en las principales rutas nacionales para una de las principales aerolíneas de Australia. La empresa requería pronósticos del número de pasajeros para cada ruta nacional principal y para cada clase de pasajero (clase económica, clase ejecutiva y primera clase). La empresa proporcionó datos de tráfico semanales de los seis años anteriores.
+
+El número de pasajeros aéreos se ve afectado por las vacaciones escolares, los principales eventos deportivos, las campañas publicitarias, el comportamiento de la competencia, etc. 
+
+Las vacaciones escolares a menudo no coinciden en diferentes ciudades australianas y los eventos deportivos a veces se trasladan de una ciudad a otra. Durante el período de los datos históricos, hubo una importante huelga de pilotos durante la cual no hubo tráfico durante varios meses. También se lanzó y cerró una nueva aerolínea de precio más econnómico. Hacia el final de los datos históricos, la aerolínea había probado una redistribución de algunos asientos de clase económica a clase ejecutiva y algunos asientos de clase ejecutiva a primera clase. Sin embargo, después de varios meses, las clasificaciones de los asientos volvieron a la distribución original.
+
+<div> 

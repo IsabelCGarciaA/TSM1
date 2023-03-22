@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Reflexión_Debate</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.17/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/rutgers-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <span style="color:#FF7F00"><strong>Reflexión_Debate</strong>
+]
+.author[
+### 
+]
+
+---
+
+
+
+
+
+# &lt;span style="color:#FF7F00"&gt; **Casos de consultoría**
+
+Los siguientes son casos son tomados del texto
+
+&gt; Hyndman, R.J., &amp; Athanasopoulos, G. (2021) Forecasting: principles and practice, 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3.
+
+los cuales, presentan diferentes tipos de situaciones de pronóstico y los desafíos asociados que a menudo surgen.
+
+Una vez se haya abordado la lectura de las situaciones, reflexione acerca de la siguiente pregunta:
+ 
+ &lt;span style="color:-686868"&gt; **¿Qué desafíos han enfrentado en el uso de información estructurada en el tiempo?** 
+ 
+y comparta sus ideas en el Debate.
+
+---
+
+
+## &lt;span style="color:#034a94"&gt; **Caso 1**
+
+&lt;div style="text-align: justify"&gt; 
+
+En este caso, el cliente era el gobierno federal australiano, que necesitaba pronosticar el presupuesto anual para el Esquema de Beneficios Farmacéuticos (PBS). El PBS proporciona un subsidio para muchos productos farmacéuticos que se venden en Australia y el gasto depende de lo que la gente compre durante el año. El gasto total fue de alrededor de `\(7.000\)` millones de dólares australianos en `\(2009\)` y se había subestimado en casi `\(1.000\)` millones de dólares en cada uno de los dos años antes de que se pidiera la ayuda para desarrollar un enfoque de pronóstico más preciso.
+
+
+Para pronosticar el gasto total, es necesario pronosticar los volúmenes de ventas de cientos de grupos de productos farmacéuticos utilizando datos mensuales. Casi todos los grupos tenian tendencias y patrones estacionales. Los volúmenes de ventas de muchos grupos tenian saltos repentinos hacia arriba o hacia abajo debido a cambios en los medicamentos que se subvencionan. Los gastos de muchos grupos también tenian cambios repentinos debido a la disponibilidad de medicamentos más baratos de la competencia.
+
+Por lo tanto, necesitában encontrar un método de pronóstico que permitiera capturar la tendencia y la estacionalidad si estuvieran presentes y, al mismo tiempo, fuera resistente a los cambios repentinos en los patrones subyacentes. También se necesitaba que pudiese aplicarse automáticamente a un gran número de series temporales.
+
+&lt;div&gt;
+---
+
+## &lt;span style="color:#034a94"&gt; **Caso 2**
+
+&lt;div style="text-align: justify"&gt; 
+
+Una gran empresa de flotas de automóviles solicitó ayuda para pronosticar los valores de reventa de los vehículos. El modelo de negocio era que compran vehículos nuevos, los arriendan por tres años y luego los venden. Mejores pronósticos de los valores de venta de vehículos significarían un mejor control de las ganancias; así que comprender qué afecta los valores de reventa puede permitir que se desarrollen políticas de arrendamiento y ventas para maximizar las ganancias.
+
+En ese momento, los valores de reventa estaban siendo pronosticados por un grupo de especialistas. Desafortunadamente, vieron cualquier modelo estadístico como una amenaza para sus trabajos y no cooperaron en proporcionar información. No obstante, la empresa proporcionó una gran cantidad de datos sobre vehículos anteriores y sus eventuales valores de reventa.
+
+&lt;div&gt;
+---
+
+## &lt;span style="color:#034a94"&gt; **Caso 3**
+
+&lt;div style="text-align: justify"&gt; 
+
+En este proyecto, necesitában desarrollar un modelo para pronosticar el tráfico aéreo semanal de pasajeros en las principales rutas nacionales para una de las principales aerolíneas de Australia. La empresa requería pronósticos del número de pasajeros para cada ruta nacional principal y para cada clase de pasajero (clase económica, clase ejecutiva y primera clase). La empresa proporcionó datos de tráfico semanales de los seis años anteriores.
+
+El número de pasajeros aéreos se ve afectado por las vacaciones escolares, los principales eventos deportivos, las campañas publicitarias, el comportamiento de la competencia, etc. 
+
+Las vacaciones escolares a menudo no coinciden en diferentes ciudades australianas y los eventos deportivos a veces se trasladan de una ciudad a otra. Durante el período de los datos históricos, hubo una importante huelga de pilotos durante la cual no hubo tráfico durante varios meses. También se lanzó y cerró una nueva aerolínea de precio más econnómico. Hacia el final de los datos históricos, la aerolínea había probado una redistribución de algunos asientos de clase económica a clase ejecutiva y algunos asientos de clase ejecutiva a primera clase. Sin embargo, después de varios meses, las clasificaciones de los asientos volvieron a la distribución original.
+
+&lt;div&gt; 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
