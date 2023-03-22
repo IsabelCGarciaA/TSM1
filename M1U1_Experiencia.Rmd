@@ -1,0 +1,142 @@
+---
+title: <span style="color:#FF7F00">**Pronóstico en las Series de Tiempo**
+author: " "
+date: " "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+
+c2="FF7F00" #color naranja-primario
+c1="034a94" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+
+<span style="color:#0EB0C6"> **
+<span style="color:#-686868"> **
+
+
+<div style="text-align: justify"> 
+
+## <span style="color:#034a94"> **¿Qué es el pronóstico en una serie de tiempo?**
+
+A través de muchas décadas, predecir y/o pronosticar ha sido uno de los principales intereses de la humanidad.  Antes de la axiomatización de la probabilidad y la estadística, esto era considerado una señal de inspiración divina y, a veces, se la considera una actividad delictiva.   
+
+Más aún, no alcanzaríamos a numerar la cantidad de predicciones acertadas y erróneas a lo largo del tiempo, por ejemplo, algunas predicciones famosas a acerca de la computación:
+
+• Creo que hay un mercado mundial para unas cinco computadoras. (Presidente de IBM, 1943)
+
+• Las computadoras en el futuro no podrán pesar más de 1,5 toneladas. (Mecánica Popular, 1949)
+
+• No hay ninguna razón por la que alguien quiera una computadora en su hogar. (Presidente, DIC, 1977)
+
+También, hay muchos ejemplos, de pronósticos que hace años atrás eran inimaginables, como es el caso de que hoy en día la inteligencia artificial es capaz de hacer algoritmos mejores que los humanos.   
+
+Claramente, el pronóstico es una actividad difícil, y las empresas que lo hacen bien tienen una gran ventaja sobre aquellas cuyas predicciones no son tan precisas.  En este curso, exploraremos algunos métodos confiables para producir pronósticos. El énfasis estará en los métodos que son replicables y comprobables, y que se ha demostrado que funcionan.
+
+## <span style="color:#034a94"> **¿Para qué pronosticar?**
+
+En un gran número de situaciones para la toma de decisiones, la tarea de predecir, es indispensable.   Por ejemplo, si queremos invertir en la generación de una nueva planta de energía, se necesita tener un pronóstico de la demanda en el futuro; o si necesitamos programar el personal de atención al cliente en un centro de servicios en temporada alta, se requiere tener un pronóstico del volumen de servicios; o bien, si lo queremos es almacenar alimentos perecederos, esto implica tener un pronóstico de las existencias y demandas del producto en ese tiempo determinado de almacenamiento. 
+
+En algunos casos, se requiere predecir con varios años de anticipación, como es el caso del mercado de capitales o sólo con unos pocos minutos de anticipación, en el caso, de la ruta diaria de una empresa de distribución de productos.  Sea cual sea la situación, poder predecir, agrega un valor muy importante a las empresas pues permite una planificación eficaz y eficiente.
+
+También, debemos enfatizar que hay cosas que son más fáciles de pronosticar que otras.  Es decir, con base en los sistemas de información, puede ser muy fácil predecir la hora exacta de lluvia en una región el día de mañana, pero predecir los números del baloto de la próxima semana no se puede predecir con tanta precisión.  
+
+El pronóstico de un evento, depende de varios factores: ¿qué tan bien entendemos los factores que contribuyen al evento? ¿cuántos datos hay disponibles? ¿qué tan similiar puede ser el futuro al pasado? ¿será los pronósticos pueden afectar lo que estamos tratando de pronosticar?
+
+Consideremos la siguiente situación: El pronóstico a corto plazo de la demanda de electricidad residencial en un país como Alemania, este puede ser muy preciso porque generalmente se cumplen las cuatro condiciones: 
+
+•	Se tiene una buena idea de los factores contribuyentes: la demanda de electricidad está impulsada en gran medida por las temperaturas, con efectos menores por la variación del calendario, como los días festivos, y las condiciones económicas.
+
+•	Hay varios años de datos disponibles sobre la demanda de electricidad y muchas décadas de datos sobre las condiciones climáticas.
+
+•	Para pronósticos a corto plazo (hasta unas pocas semanas), es seguro asumir que el comportamiento de la demanda será similar al observado en el pasado. Claro, con casos excepcionales, como una pandemia.
+
+•	Para la mayoría de los usuarios residenciales, el precio de la electricidad no depende de la demanda, por lo que la predicción de la demanda tiene poco o ningún efecto sobre el comportamiento del consumidor.
+
+Siempre que tengamos las habilidades para desarrollar un buen modelo que vincule la demanda de electricidad y las variables adecuadas, los pronósticos pueden ser notablemente precisos.
+
+Otro caso es el del pronóstico de los tipos de cambio de divisas, en este sólo se cumple una de las condiciones: hay muchos datos disponibles. Sin embargo, tenemos una comprensión limitada de los factores que afectan los tipos de cambio, el futuro bien puede ser diferente al pasado si hay una crisis financiera a causa de una pandemia como COVID 19, o política causada por una guerra como en Rusia-Ucrania, y los pronósticos del tipo de cambio tienen un efecto directo en el califica a sí mismos. Si hay pronósticos bien publicitados de que el tipo de cambio aumentará, entonces la gente ajustará inmediatamente el precio que está dispuesta a pagar y, por lo tanto, los pronósticos se cumplirán por sí mismos. En cierto sentido, los tipos de cambio se convierten en sus propios pronósticos. Este es un ejemplo de la “hipótesis del mercado eficiente”. En consecuencia, pronosticar si el tipo de cambio subirá o bajará mañana es tan predecible como pronosticar si una moneda arrojada al aire caerá como cara o cruz. En ambas situaciones, acertarás aproximadamente el 50 % de las veces, independientemente de lo que pronostiques. En ‘trading’ se debe ser consciente de las limitaciones y no afirmar más de lo posible.
+
+Un buen pronóstico captura los patrones y relaciones genuinas que existen en los datos históricos, pero no replican eventos pasados que no volverán a ocurrir.   Acá, veremos cómo diferenciar entre una fluctuación aleatoria en los datos pasados que debe ignorarse y un patrón genuino que debe modelarse y extrapolarse.
+
+Muchos autores, asumen ‘erróneamente’ que los pronósticos no son posibles en un entorno cambiante. Cada entorno está cambiando, y un buen modelo de pronóstico captura la forma en que están cambiando las cosas. Los pronósticos rara vez asumen que el entorno no cambia. Lo que normalmente se supone es que la forma en que está cambiando el entorno continuará en el futuro. Es decir, un entorno altamente volátil seguirá siendo altamente volátil; un negocio con ventas fluctuantes seguirá teniendo ventas fluctuantes; y una economía que ha pasado por auges y caídas continuará pasando por auges y caídas. Un modelo de pronóstico pretende capturar la forma en que se mueven las cosas, no solo dónde están las cosas. Como dijo Abraham Lincoln: “Si primero pudiéramos saber dónde estamos y hacia dónde nos dirigimos, podríamos juzgar mejor qué hacer y cómo hacerlo”.
+Las situaciones de pronóstico varían ampliamente en sus horizontes de tiempo, factores que determinan los resultados reales, tipos de patrones de datos y muchos otros aspectos. Los métodos de pronóstico pueden ser simples, como utilizar la observación más reciente como pronóstico, o muy complejos, como las redes neuronales y los sistemas econométricos de ecuaciones simultáneas. A veces, no habrá datos disponibles, por ejemplo, si deseamos pronosticar las ventas de un nuevo producto en su primer año, tendremos que hacer un pronóstico basado en juicios. Por tanto, la elección del método de pronóstico, depende de qué datos están disponibles y la previsibilidad de la cantidad a pronosticar.
+
+
+## <span style="color:#034a94"> **Diferencia entre pronosticar, los objetivos y la planificación**
+
+El pronóstico es una tarea estadística común en los negocios, donde ayuda a informar las decisiones sobre la programación de la producción, el transporte y el personal, y proporciona una guía para la planificación estratégica a largo plazo. Sin embargo, el pronóstico empresarial a menudo se realiza de forma deficiente y se confunde con frecuencia con la planificación y los objetivos. 
+
+### <span style="color:#0EB0C6"> **Pronóstico**
+
+Se trata de predecir el futuro con la mayor precisión posible, dada toda la información disponible, incluidos los datos históricos y el conocimiento de cualquier evento futuro que pueda afectar el pronóstico.
+
+### <span style="color:#0EB0C6"> **Metas/Objetivos**
+
+Es lo que te gustaría que sucediera. Las metas deben estar vinculadas a pronósticos y planes, pero esto no siempre ocurre. Con demasiada frecuencia, las metas se establecen sin ningún plan sobre cómo lograrlas y sin pronósticos sobre si serán realistas.
+
+### <span style="color:#0EB0C6"> **Planificación**
+
+Es una respuesta a los pronósticos y los objetivos. La planificación implica determinar las acciones apropiadas que se requieren para que sus pronósticos coincidan con sus objetivos.
+
+El pronóstico debe ser una parte integral de las actividades de toma de decisiones de la gestión, ya que puede desempeñar un papel importante en muchas áreas de una empresa. Las organizaciones modernas requieren pronósticos a corto, mediano y largo plazo, según la aplicación específica.
+
+#### <span style="color:#-686868"> **A corto plazo:** 
+necesarios para la programación de personal, producción y transporte. Como parte del proceso de programación, a menudo también se requieren pronósticos de demanda.
+
+#### <span style="color:#-686868"> **A mediano plazo:**
+necesarios para determinar los requisitos futuros de recursos, para comprar materias primas, contratar personal o comprar maquinaria y equipo.
+
+#### <span style="color:#-686868"> **A largo plazo:** 
+usados en la planificación estratégica. Tales decisiones deben tener en cuenta las oportunidades de mercado, los factores ambientales y los recursos internos.
+
+Una organización necesita desarrollar un sistema de pronóstico que involucre varios enfoques para predecir eventos inciertos. Dichos sistemas de pronóstico requieren el desarrollo de experiencia en la identificación de problemas de pronóstico, la aplicación de una variedad de métodos de pronóstico, la selección de métodos apropiados para cada problema y la evaluación y perfeccionamiento de los métodos de pronóstico a lo largo del tiempo. También es importante contar con un fuerte apoyo organizacional para el uso de métodos formales de pronóstico si se van a utilizar con éxito.
+
+## <span style="color:#034a94"> **¿Qué pronosticar?**
+
+En las primeras etapas de un proyecto de pronóstico, se deben tomar decisiones sobre lo que se debe pronosticar. Por ejemplo, si se requieren pronósticos para artículos en un entorno de fabricación, es necesario preguntar si se necesitan pronósticos para:
+
+1. ¿Cada línea de productos o por grupos de productos?
+
+2. Todos los puntos de venta, o para los puntos de venta agrupados por región, o solo para las ventas totales?
+
+3. Datos semanales, datos mensuales o datos anuales?
+
+También es necesario considerar el horizonte de pronóstico. ¿Se requerirán pronósticos con un mes de anticipación, con 6 meses o con 10 años? Serán necesarios diferentes tipos de modelos, dependiendo de qué horizonte de pronóstico sea más importante.
+¿Con qué frecuencia se requieren pronósticos? Los pronósticos que deben producirse con frecuencia se realizan mejor con un sistema automatizado que con métodos que requieren un trabajo manual cuidadoso.
+
+Como sabemos, en la labor del científico de datos, es indispensable dedicar tiempo a hablar con las personas que utilizarán los pronósticos para asegurarse de que comprende sus necesidades y cómo se utilizarán los pronósticos, antes de embarcarse en un trabajo extenso para producir los pronósticos.
+
+Una vez que se ha determinado qué pronósticos se requieren, entonces es necesario encontrar o recopilar los datos en los que se basarán los pronósticos. Es posible que ya existan los datos necesarios para la previsión. En estos días, se registra una gran cantidad de datos, y la tarea del pronosticador suele ser identificar dónde y cómo se almacenan los datos requeridos. Los datos pueden incluir registros de ventas de una empresa, la demanda histórica de un producto o la tasa de desempleo de una región geográfica. Una gran parte del tiempo de un pronosticador puede dedicarse a ubicar y cotejar los datos disponibles antes de desarrollar métodos de pronóstico adecuados.
+
+## <span style="color:#034a94"> **Los pasos básicos para el pronóstico**
+
+Una tarea de pronóstico generalmente involucra cinco pasos básicos.
+
+### <span style="color:#0EB0C6"> **Paso 1: Definición del problema**
+Frecuentemente, esta es la parte más difícil del pronóstico.  Definir el problema con cuidado requiere una comprensión de la forma en que se utilizarán los pronósticos, quién los requiere y cómo encaja la función de pronóstico dentro de la organización que requiere los pronósticos. 
+
+### <span style="color:#0EB0C6"> **Paso 2: Recopilación de información**
+Siempre se requieren al menos dos tipos de información: (a) datos estadísticos y (b) la experiencia acumulada de las personas que recopilan los datos y utilizan los pronósticos.
+
+### <span style="color:#0EB0C6"> **Paso 3: Análisis preliminar (exploratorio)**
+Siempre comience graficando los datos. ¿existen patrones? ¿existe una tendencia significativa? ¿es importante la estacionalidad? ¿existe evidencia de la presencia de ciclos económicos? ¿existen valores atípicos en los datos que deban ser explicados por personas con conocimientos expertos? ¿qué tan fuertes son las relaciones entre las variables disponibles para el análisis? 
+
+### <span style="color:#0EB0C6"> **Paso 4: Elección y ajuste de modelos**
+El mejor modelo a utilizar depende de la disponibilidad de datos históricos, la solidez de las relaciones entre la variable de pronóstico y cualquier variable explicativa, y la forma en que se utilizarán los pronósticos. Es común comparar dos o tres modelos potenciales. Cada modelo es en sí mismo una construcción artificial que se basa en un conjunto de supuestos (explícitos e implícitos) y generalmente involucra uno o más parámetros que deben estimarse utilizando los datos históricos conocidos. 
+
+### <span style="color:#0EB0C6"> **Paso 5: Uso y evaluación de un modelo de pronóstico**
+Una vez que se ha seleccionado un modelo y se han estimado sus parámetros, el modelo se usa para hacer pronósticos. El desempeño del modelo solo puede evaluarse adecuadamente después de que los datos para el período de pronóstico estén disponibles. 
+
+</div>
+
+
+
+
+
+
+
