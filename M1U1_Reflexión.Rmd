@@ -1,0 +1,156 @@
+---
+title: <span style="color:#034a94">**Reflexión**
+author: " "
+institute: " "
+date: " "
+output: 
+  xaringan::moon_reader:
+    css: [rutgers-fonts, "styles.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: arta
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+
+c2="FF7F00" #color naranja-primario
+c1="034a94" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+
+
+<span style="color:#FF7F00"> **
+<span style="color:#034a94"> **
+<span style="color:#0EB0C6"> **
+<span style="color:#-686868"> **
+
+
+# <span style="color:#FF7F00"> **Importanción de datos a R**
+
+<div style="text-align: justify"> 
+
+En la práctica, algunos formatos en los que están las bases de datos son más comunes que otros. A continuación, mostramos algunos formatos:
+
+</div>
+
+## <span style="color:#034a94"> **Desde CSV**
+
+data< <- read.table("c:/data.csv", header=TRUE,
+   sep=",", row.names="id")
+
+## <span style="color:#034a94"> **Desde Excel**
+
+library(xlsx)
+data <- read.xlsx("c:/excel.xlsx", 1)
+
+### <span style="color:#0EB0C6"> **Leer desde una hoja específica**
+
+data <- read.xlsx("c:/excel.xlsx", sheetName = "mysheet")
+
+---
+
+## <span style="color:#034a94"> **Desde SPSS**
+
+get file='c:\data.sav'.
+export outfile='c:\data.por'.
+
+### <span style="color:#0EB0C6"> **En R**
+library(Hmisc)
+data <- spss.get("c:/data.por", use.value.labels=TRUE)
+
+## <span style="color:#034a94"> **Desde SAS**
+
+libname out xport 'c:/data.xpt';
+data out.mydata;
+set sasuser.mydata;
+run;
+
+### <span style="color:#0EB0C6"> **En R**
+library(Hmisc)
+data <- sasxport.get("c:/data.xpt")
+
+---
+## <span style="color:#034a94"> **Desde Stata**
+
+library(foreign)
+data <- read.dta("c:/data.dta")
+
+## <span style="color:#034a94"> **Desde systat**
+
+library(foreign)
+data <- read.systat("c:/data.dta")
+
+Para más detalles, de cómo importar datos a R, visitar
+
+- (url(https://www.uv.es/pjperez/curso_R/tt_3_cargar_datos_v4.html#1_intro))
+
+- (url(https://www.datacamp.com/tutorial/r-data-import-tutorial))
+
+Acá nuestro interés radica en descargar datos desde API. 
+
+
+---
+
+# <span style="color:#FF7F00"> **Descargar datos desde una URL**
+
+<div style="text-align: justify"> 
+
+Si queremos descargar datos desde una URL específica, por ejemplo https://finance.yahoo.com
+necesitamos la función 'get.hist.quote' donde ZM es el ID de la base que queremos obtener. En este ejemplo, las acciones de ZOOM.
+</div>
+
+```{r}
+require(stats)
+require(tseries)
+require(fGarch)
+require(zoo)
+```
+
+---
+
+```{r message=FALSE, warning=FALSE}
+
+con=url("https://finance.yahoo.com")
+
+zoom= get.hist.quote(instrument = "ZM")
+str(zoom) #(observamos la estructura)
+```
+
+
+<div style="text-align: justify"> 
+
+También debemos verificar el tipo de objeto, en este caso es 'zoo'.   La clase 'zoo' se usa para objetos que no están regularmente espaciados (el nombre de la clase deriva del apellido del autor del paquete, Zeilies Ordered Observations). Los objetos de esta clase se crean mediante la función zoo().
+
+Otro tipo de clase es ts, la cual sería para observaciones regularmente espaciadas, esto se retomará más adelante.
+</div>
+
+```{r}
+class(zoom)
+```
+
+---
+
+A lo largo del programa, han tenido la oportunidad de descargar o usar bases de datos de distintas fuentes. Por ejemplo,
+
+- https://ourworldindata.org/
+
+- http://dhime.ideam.gov.co/atencionciudadano/
+
+- https://www.kaggle.com/
+
+- https://www.datos.gov.co/
+
+- https://statistics.cepal.org/portal/cepalstat/index.html?lang=es
+
+- https://aws.amazon.com/es/free/database/
+
+- https://geoinnova.org/blog-territorio/recursos-para-descarga-de-datos-climaticos-mundiales/#WorldClim
+
+y así, hay un sin fin de información disponible.  
+
+Ahora, puedes usar tu propia base de datos o explorar conjuntos de tú interés, que involucren la variable tiempo.
