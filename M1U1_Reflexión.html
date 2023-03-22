@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Reflexión</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.17/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/rutgers-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <span style="color:#034a94"><strong>Reflexión</strong>
+]
+.author[
+### 
+]
+
+---
+
+
+
+
+
+&lt;span style="color:#FF7F00"&gt; **
+&lt;span style="color:#034a94"&gt; **
+&lt;span style="color:#0EB0C6"&gt; **
+&lt;span style="color:#-686868"&gt; **
+
+
+# &lt;span style="color:#FF7F00"&gt; **Importanción de datos a R**
+
+&lt;div style="text-align: justify"&gt; 
+
+En la práctica, algunos formatos en los que están las bases de datos son más comunes que otros. A continuación, mostramos algunos formatos:
+
+&lt;/div&gt;
+
+## &lt;span style="color:#034a94"&gt; **Desde CSV**
+
+data&lt; &lt;- read.table("c:/data.csv", header=TRUE,
+   sep=",", row.names="id")
+
+## &lt;span style="color:#034a94"&gt; **Desde Excel**
+
+library(xlsx)
+data &lt;- read.xlsx("c:/excel.xlsx", 1)
+
+### &lt;span style="color:#0EB0C6"&gt; **Leer desde una hoja específica**
+
+data &lt;- read.xlsx("c:/excel.xlsx", sheetName = "mysheet")
+
+---
+
+## &lt;span style="color:#034a94"&gt; **Desde SPSS**
+
+get file='c:\data.sav'.
+export outfile='c:\data.por'.
+
+### &lt;span style="color:#0EB0C6"&gt; **En R**
+library(Hmisc)
+data &lt;- spss.get("c:/data.por", use.value.labels=TRUE)
+
+## &lt;span style="color:#034a94"&gt; **Desde SAS**
+
+libname out xport 'c:/data.xpt';
+data out.mydata;
+set sasuser.mydata;
+run;
+
+### &lt;span style="color:#0EB0C6"&gt; **En R**
+library(Hmisc)
+data &lt;- sasxport.get("c:/data.xpt")
+
+---
+## &lt;span style="color:#034a94"&gt; **Desde Stata**
+
+library(foreign)
+data &lt;- read.dta("c:/data.dta")
+
+## &lt;span style="color:#034a94"&gt; **Desde systat**
+
+library(foreign)
+data &lt;- read.systat("c:/data.dta")
+
+Para más detalles, de cómo importar datos a R, visitar
+
+- (url(https://www.uv.es/pjperez/curso_R/tt_3_cargar_datos_v4.html#1_intro))
+
+- (url(https://www.datacamp.com/tutorial/r-data-import-tutorial))
+
+Acá nuestro interés radica en descargar datos desde API. 
+
+
+---
+
+# &lt;span style="color:#FF7F00"&gt; **Descargar datos desde una URL**
+
+&lt;div style="text-align: justify"&gt; 
+
+Si queremos descargar datos desde una URL específica, por ejemplo https://finance.yahoo.com
+necesitamos la función 'get.hist.quote' donde ZM es el ID de la base que queremos obtener. En este ejemplo, las acciones de ZOOM.
+&lt;/div&gt;
+
+
+```
+## Loading required package: tseries
+```
+
+```
+## Warning: package 'tseries' was built under R version 4.2.2
+```
+
+```
+## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo
+```
+
+```
+## Loading required package: fGarch
+```
+
+```
+## NOTE: Packages 'fBasics', 'timeDate', and 'timeSeries' are no longer
+## attached to the search() path when 'fGarch' is attached.
+## 
+## If needed attach them yourself in your R script by e.g.,
+##         require("timeSeries")
+```
+
+```
+## Loading required package: zoo
+```
+
+```
+## Warning: package 'zoo' was built under R version 4.2.2
+```
+
+```
+## 
+## Attaching package: 'zoo'
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+```
+
+---
+
+
+```
+## time series starts 2019-04-18
+## time series ends   2023-03-20
+```
+
+```
+## 'zoo' series from 2019-04-18 to 2023-03-20
+##   Data: num [1:987, 1:4] 65 61 66.9 71.4 64.7 ...
+##  - attr(*, "dimnames")=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:4] "Open" "High" "Low" "Close"
+##   Index:  Date[1:987], format: "2019-04-18" "2019-04-22" "2019-04-23" "2019-04-24" "2019-04-25" ...
+```
+
+
+&lt;div style="text-align: justify"&gt; 
+
+También debemos verificar el tipo de objeto, en este caso es 'zoo'.   La clase 'zoo' se usa para objetos que no están regularmente espaciados (el nombre de la clase deriva del apellido del autor del paquete, Zeilies Ordered Observations). Los objetos de esta clase se crean mediante la función zoo().
+
+Otro tipo de clase es ts, la cual sería para observaciones regularmente espaciadas, esto se retomará más adelante.
+&lt;/div&gt;
+
+
+```
+## [1] "zoo"
+```
+
+---
+
+A lo largo del programa, han tenido la oportunidad de descargar o usar bases de datos de distintas fuentes. Por ejemplo,
+
+- https://ourworldindata.org/
+
+- http://dhime.ideam.gov.co/atencionciudadano/
+
+- https://www.kaggle.com/
+
+- https://www.datos.gov.co/
+
+- https://statistics.cepal.org/portal/cepalstat/index.html?lang=es
+
+- https://aws.amazon.com/es/free/database/
+
+- https://geoinnova.org/blog-territorio/recursos-para-descarga-de-datos-climaticos-mundiales/#WorldClim
+
+y así, hay un sin fin de información disponible.  
+
+Ahora, puedes usar tu propia base de datos o explorar conjuntos de tú interés, que involucren la variable tiempo.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
