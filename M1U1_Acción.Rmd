@@ -1,0 +1,71 @@
+---
+title: <span style="color:#FF7F00"> **GitHub**
+author: " "
+date: " "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+c2="FF7F00" #color naranja-primario
+c1="034a94" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+
+# <span style="color:#FF7F00"> **Edición de un minilibro en GitHub**
+
+A lo largo de este curso, elaborarán un mini libro, con el contenido del análisis de series de tiempo de un cojunto de datos.  Es decir, podrán elegir un tema a analizar y y podrán desarrollarlo a lo largo de una cantidad de páginas.
+
+Existen muchos formatos de libros online como Text Mining with R (Julia Silge) y Advance R (Hadley Wickham), los cuales son de los primeros textos que se pueden acceder de forma gratuita.  
+
+El paquete que permite crear un libro es el paquete bookdown, a continuacion el << paso a paso >> acerca de como publicar un libro.
+
+##  <span style="color:#034a94"> **Bookdown**
+
+El paquete bookdown esta basado en R Markdown, y se apoya en su sintaxis para que pasar el texto de nuestro interés a un libro sea un proceso fácil y rápido.
+
+El autor del paquete es Yihui Xie, el cual también es autor del paquete open-source Knitr en R, y de varios libros entre ellos Authoring Books and Technical Documents with R Markdown.
+
+# <span style="color:#FF7F00"> **Paso a paso**
+
+Ahora, vamos a explicar como generar un libro en github, tal como este: https://frm1789.github.io/bookdown/
+
+## <span style="color:#034a94"> **En RStudio**
+
+1. Descargar los archivos de ejemplo de: https://github.com/rstudio/bookdown-demo como un archivo ZIP, then unzip it locally.
+
+2. Abrir los mismos en R Studio e instalar el paquete
+install.packages("bookdown")
+
+3. Abrir el repositorio bookdown-demo haciendo click en bookdown-demo.Rproj.
+
+4. Abrir el archivo R Markdown index.Rmd y hacer click sobre Build Book en el ficheroBuild de RStudio. Si utilizamos los archivos que obtuvimos en el ejemplo, el resultado que se encuentran en la carpeta ../bookdown-demo-master/_books/.
+
+5. Para realizar las modificaciones correspondientes (esto es sumar nuestro contenido), modificar los archivos con extension .Rmd
+
+6. Para exportar el libro en PDF, instalar el paquete TinyTeX
+install.packages("tinytex")
+tinytex::install_tinytex()
+
+En el libro, el detalle de estos pasos: Get Started
+
+## <span style="color:#034a94"> **En nuestros archivos** 
+
+1. Crear un repositorio en github, por ejemplo: bookdown
+
+2. Crear el directorio docs dentro del repositorio creado
+
+3. Incluir dentro del directorio docs incluir el contenido de nuestro libro
+
+4. Crear dentro del directorio docs un archivo
+
+En el libro, el detalle de estos pasos: GitHub
+
+## <span style="color:#034a94"> **En GitHub**
+
+Modificar la configuración para Github Pages, indicando que cambia el origen desde donde se mostraran nuestros archivos al directorio docs.
+
+Luego se muestra el link: “Your site is published at…”
+
