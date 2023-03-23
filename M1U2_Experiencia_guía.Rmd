@@ -1,0 +1,204 @@
+---
+title: <span style="color:#034a94"> **Experiencia_guía**
+author: " "
+institute: " "
+date: " "
+output: 
+  xaringan::moon_reader:
+    css: [rutgers-fonts, "styles.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: arta
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+c1="034a94" #color naranja-primario
+c2="FF7F00" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+
+#<span style="color:#034a94"> **Objetos en Series de Tiempo**
+
+R cuenta con numerosas funciones para el análisis de series temporales. El uso de tales funciones requiere que los objetos sean de ciertas clases, en particular, compararemos la clase $ts$ y la clase $zoo$.  
+
+- La clase ts (time series), a través de la función ts, convierte un objeto a serie temporal y se
+usa para datos espaciados de forma regular, por ejemplo, un dato por día, o dos datos por mes o un dato cada dos años, etc.  
+
+- En cambio, la segunda se usa cuando la serie está constituída por valores irregularmente distribuidos en el tiempo.
+
+## <span style="color:#FF7F00"> **Clase zoo**
+
+Continuando con el ejemplo (**ver Reflexión en Unidad 1**) donde queremos descargar datos desde una URL específica, por ejemplo https://finance.yahoo.com
+necesitamos la función 'get.hist.quote' donde ZM es el ID de la base que queremos obtener.  En ese caso, la compañía ZOOM.
+
+```{r}
+require(stats)
+require(tseries)
+```
+
+---
+
+```{r}
+require(fGarch)
+require(zoo)
+
+con=url("https://finance.yahoo.com")
+
+zoom= get.hist.quote(instrument = "ZM")
+ 
+```
+
+Observamos la estructura de las variables y podemos realizar una gráfica básica, en este caso con cada uno de los precios
+---
+
+```{r}
+str(zoom)
+plot(zoom)
+```
+
+Verificamos la clase a la cual pertenece el objeto
+
+```{r}
+class(zoom)
+```
+
+Podemos conocer el Inicio y Final de la serie
+
+```{r}
+start(zoom)
+end(zoom)
+```
+
+---
+
+A través de 'index', podemos obtener los valores de tiempo en que la serie se ha observado
+
+```{r}
+index(zoom)
+```
+
+Verificamos la clase de index(zoom)
+
+```{r}
+class(index(zoom)) 
+```
+
+Podemos separar los datos
+
+```{r}
+coredata(zoom) 
+```
+
+---
+
+Podemos extraer fechas específicas
+
+```{r}
+zoom[as.Date(c("2020/3/1", "2022/3/1"))] 
+```
+
+La función window() extrae los valores de la serie temporal comprendidos entre una fecha de inicio y otra final. Podemos especificar sólo el año
+
+```{r}
+window(zoom, start=as.Date("2020/3/1"), end=as.Date("2022/3/1"))
+```
+
+También podemos conocer la fecuencia de los datos
+
+```{r}
+frequency(zoom)
+```
+
+---
+
+Notemos que frequency tomó el valor de 1, es decir, podría ser anual (1), mensual (12), cuatrisemestral (4), semanal (52)
+
+### <span style="color:#0EB0C6"> **En el caso de Apple**
+
+A través de **quote** especifícamos de la base una variable, el precio de cierre.
+
+```{r}
+apple= get.hist.quote(instrument = "AAPL", start = "2019-04-18",quote = "Close")
+plot(apple)
+```
+
+Podemos combinar ambas series (Apple y Zoom)
+
+```{r}
+zoom_apple=merge(zoom,apple)
+plot(zoom_apple)
+```
+---
+
+## <span style="color:#FF7F00"> **Datos con formato csv**
+
+Estos datos de descargaron desde https://www.kaggle.com/
+
+```{r}
+library(readr)
+Electric_Production <- read_csv("Electric_Production.csv")
+Electric_Production
+```
+
+```{r}
+class(Electric_Production)
+```
+
+Recordemos que un objeto **data.frame** es un arreglo rectangular (i.e. organizado por filas y columnas) con datos en sus columnas. 
+
+```{r}
+colnames(Electric_Production) 
+head(Electric_Production)
+```
+
+---
+
+```{r}
+class(Electric_Production$DATE)
+class(Electric_Production$IPG2211A2N)
+```
+
+```{r}
+str(Electric_Production)
+```
+
+```{r}
+which(Electric_Production$DATE == "2/1/1985") 
+```
+
+```{r}
+Electric_Production[13:25,] 
+```
+
+```{r}
+is.na(Electric_Production)
+```
+
+No hay datos faltantes.
+
+```{r}
+plot(Electric_Production$IPG2211A2N, type="l") 
+```
+
+Observación: no es posible realizar este tipo de gráfica para variables con dos estructuras distintas.
+
+---
+
+```{r}
+plot(Electric_Production$DATE, Electric_Production$IPG2211A2N, type="l", ylim=c(0,50), xlim=c(0,50)) 
+```
+
+
+```{r}
+plot(Electric_Production$DATE, Electric_Production$IPG2211A2N, type="l", ylim=c(0,50), xlim=c(0,50)) 
+```
+
+
+
+

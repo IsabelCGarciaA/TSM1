@@ -1,5 +1,5 @@
 ---
-title: <span style="color:#034a94">**Reflexión**
+title: <span style="color:#FF7F00"> **Reflexión**
 author: " "
 institute: " "
 date: " "
@@ -22,14 +22,6 @@ c1="034a94" #color azul oscuro-secundario
 c3="0EB0C6" #color azul claro-terciario
 c4="-686868" #color gris-texto
 ```
-
-
-<span style="color:#FF7F00"> **
-<span style="color:#034a94"> **
-<span style="color:#0EB0C6"> **
-<span style="color:#-686868"> **
-
-
 # <span style="color:#FF7F00"> **Importanción de datos a R**
 
 <div style="text-align: justify"> 
