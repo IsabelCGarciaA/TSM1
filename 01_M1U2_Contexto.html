@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Contexto</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Isabel C. García A." />
+    <script src="../libs/header-attrs-2.17/header-attrs.js"></script>
+    <link href="../libs/remark-css-0.0.1/rutgers-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Contexto
+]
+.author[
+### Isabel C. García A.
+]
+.institute[
+### Pontificia Universidad Javeriana Cali
+]
+.date[
+### 2022/12/10 (updated: 2022-10-25)
+]
+
+---
+
+
+# Gráficos en series de tiempo
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+Como lo dijimos anteriormente, en al análisis de datos, debemos iniciar **graficando** los datos ya que estos nos permiten visualizar muchas características como los patrones, las observaciones inusuales, los cambios a lo largo del tiempo y las relaciones entre variables.
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+Las características que se observan deben incorporarse, en la medida de lo posible, en los métodos de pronóstico. A su vez, el tipo de datos determina qué método de pronóstico usar y qué gráficos son apropiados para su descripción. 
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+Existen varias formas de representar el tiempo en las series temporales:
+&lt;div&gt;
+
+-Podemos realizar un gráfico estándar en el que el tiempo está representado en el eje horizontal.
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+-También el tiempo puede concebirse como una variable de agrupamiento o condicionamiento. Por ejemplo, que se muestren varias variables junto con un diagrama de dispersión, usando diferentes paneles para subconjuntos de datos (tiempo como variable condicionante) o usando diferentes atributos para grupos de datos (tiempo como agrupación de varias variables).
+&lt;div&gt;
+
+-El tiempo puede usarse como una variable complementaria que agrega información a un gráfico donde se enfrentan varias variables.
+&lt;div&gt; 
+
+---
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+A continuación, presentamos algunos gráficos que pueden contribuir a la visualización de las series de tiempo, donde el tiempo está en el eje horizontal (forma más usada). Además, las series pueden ser series temporales multivariantes de dos tipos: variables de diferentes escalas y variables de la misma escala.
+&lt;div&gt;
+
+### Gráficos de tiempo de variables con diferentes escalas
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+Estos gráficos consisten en representar las variables a lo largo del tiempo por separado para observar la relación de cada una de ellos con el tiempo. La superposición de variables con características diferentes no es muy útil (a menos que sus valores hayan sido reescalados previamente).
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:center;'&gt;
+&lt;img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Todo 6.10/Diseño_Borrador/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/plot1.png" width="420" height="320" /&gt;
+&lt;div&gt;
+
+---
+
+### Series temporales de variables en la misma escala
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+El objetivo de este gráfico es mostrar el comportamiento de la colección de variables como un todo. Debe tenerse cuidado con la densidad de las líneas porque la transparencia suaviza los problemas de superposición y revela los grupos de densidad porque las regiones con más líneas superpuestas son más oscuras. Este gráfico muestra las variaciones alrededor de la media de tiempo.
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:center;'&gt;
+&lt;img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Todo 6.10/Diseño_Borrador/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/plot2.png" width="480" height="380" /&gt;
+&lt;div&gt;
+
+---
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+Este gráfico es útil para examinar cómo cambia un gran número de series temporales a lo largo del tiempo, permitiendo analizarsas por separado y entre sí, observando facilmente los comportamientos anómalos y los patrones.
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+Los valores negativos se invierten y se colocan por encima de la línea de referencia. El signo se codifica utilizando diferentes tonos (valores positivos en azul y valores negativos en rojo). Las diferencias en magnitud se muestran como diferencias en la intensidad del color (colores más oscuros para mayores diferencias). Cada panel tiene diferentes escalas y los colores en cada panel representan desviaciones del origen.
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:center;'&gt;
+&lt;img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Todo 6.10/Diseño_Borrador/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/plot3.png" width="480" height="380" /&gt;
+&lt;div&gt;
+
+---
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+En este diagrama se muestra las diferencias con el día del mes en el eje horizontal y el año en el eje vertical, con un panel diferente para cada mes. Por lo tanto, cada celda de la siguiente figura corresponde a un determinado día de la serie temporal.
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:center;'&gt;
+&lt;img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Todo 6.10/Diseño_Borrador/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/plot4.png" width="600" height="500" /&gt;
+&lt;div&gt;
+
+---
+
+### El tiempo como condicionante o variable de agrupación
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+Acá se representa la relación entre las variables a través de las matrices de diagramas de dispersión. Se usa el tiempo como una variable de agrupación. Cada subtrama muestra la relación entre el par de variables en la intersección de la fila y la columna indicada por los nombres de las variables en los paneles diagonales.
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:center;'&gt;
+&lt;img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Todo 6.10/Diseño_Borrador/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/plot5.png" width="600" height="500" /&gt;
+&lt;div&gt;
+
+---
+
+### El tiempo como variable complementaria
+
+&lt;div&gt;
+&lt;p style = 'text-align:justify;'&gt;
+En este gráfico el tiempo se utiliza como una variable complementaria que agrega información a un gráfico donde se enfrentan varias variables. Se representa con un gráfico de **Polilíneas** la evolución de la relación entre el ingreso nacional bruto (INB) y las emisiones de dióxido de carbono ((CO_2)) para un conjunto de países extraídos de la base de datos de datos abiertos del Banco Mundial. 
+&lt;div&gt;
+
+&lt;div&gt;
+&lt;p style = 'text-align:center;'&gt;
+&lt;img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Todo 6.10/Diseño_Borrador/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/plot6.png" width="480" height="380" /&gt;
+&lt;div&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

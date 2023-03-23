@@ -1,0 +1,146 @@
+---
+title: <span style="color:#034a94">**Contexto**
+author: " "
+institute: " "
+date: " "
+output: 
+  xaringan::moon_reader:
+    css: [rutgers-fonts, "styles.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: arta
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+c1="034a94" #color naranja-primario
+c2="FF7F00" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+<span style="color:#034a94"> **
+<span style="color:#FF7F00"> **
+<span style="color:#0EB0C6"> **
+<span style="color:#-686868"> **
+
+
+
+# <span style="color:#034a94"> **Gráficos en series de tiempo**
+<div>
+<p style = 'text-align:justify;'>
+Como lo dijimos anteriormente, en al análisis de datos, debemos iniciar **graficando** los datos ya que estos nos permiten visualizar muchas características como los patrones, las observaciones inusuales, los cambios a lo largo del tiempo y las relaciones entre variables.
+<div>
+
+<div>
+<p style = 'text-align:justify;'>
+Las características que se observan deben incorporarse, en la medida de lo posible, en los métodos de pronóstico. A su vez, el tipo de datos determina qué método de pronóstico usar y qué gráficos son apropiados para su descripción. 
+<div>
+
+<div>
+<p style = 'text-align:justify;'>
+Existen varias formas de representar el tiempo en las series temporales:
+<div>
+
+-Podemos realizar un gráfico estándar en el que el tiempo está representado en el eje horizontal.
+
+<div>
+<p style = 'text-align:justify;'>
+-También el tiempo puede concebirse como una variable de agrupamiento o condicionamiento. Por ejemplo, que se muestren varias variables junto con un diagrama de dispersión, usando diferentes paneles para subconjuntos de datos (tiempo como variable condicionante) o usando diferentes atributos para grupos de datos (tiempo como agrupación de varias variables).
+<div>
+
+-El tiempo puede usarse como una variable complementaria que agrega información a un gráfico donde se enfrentan varias variables.
+<div> 
+
+---
+
+<div>
+<p style = 'text-align:justify;'>
+A continuación, presentamos algunos gráficos que pueden contribuir a la visualización de las series de tiempo, donde el tiempo está en el eje horizontal (forma más usada). Además, las series pueden ser series temporales multivariantes de dos tipos: variables de diferentes escalas y variables de la misma escala.
+<div>
+
+### <span style="color:#FF7F00"> **Gráficos de tiempo de variables con diferentes escalas**
+
+<div>
+<p style = 'text-align:justify;'>
+Estos gráficos consisten en representar las variables a lo largo del tiempo por separado para observar la relación de cada una de ellos con el tiempo. La superposición de variables con características diferentes no es muy útil (a menos que sus valores hayan sido reescalados previamente).
+<div>
+
+<div>
+<p style = 'text-align:center;'>
+<img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/Contexto/plot1.png" width="420" height="320" />
+<div>
+
+---
+
+### <span style="color:#FF7F00"> **Series temporales de variables en la misma escala**
+
+<div>
+<p style = 'text-align:justify;'>
+El objetivo de este gráfico es mostrar el comportamiento de la colección de variables como un todo. Debe tenerse cuidado con la densidad de las líneas porque la transparencia suaviza los problemas de superposición y revela los grupos de densidad porque las regiones con más líneas superpuestas son más oscuras. Este gráfico muestra las variaciones alrededor de la media de tiempo.
+<div>
+
+<div>
+<p style = 'text-align:center;'>
+<img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/Contexto/plot2.png" width="480" height="380" />
+<div>
+
+---
+
+<div>
+<p style = 'text-align:justify;'>
+Este gráfico es útil para examinar cómo cambia un gran número de series temporales a lo largo del tiempo, permitiendo analizarsas por separado y entre sí, observando facilmente los comportamientos anómalos y los patrones.
+<div>
+
+<div>
+<p style = 'text-align:justify;'>
+Los valores negativos se invierten y se colocan por encima de la línea de referencia. El signo se codifica utilizando diferentes tonos (valores positivos en azul y valores negativos en rojo). Las diferencias en magnitud se muestran como diferencias en la intensidad del color (colores más oscuros para mayores diferencias). Cada panel tiene diferentes escalas y los colores en cada panel representan desviaciones del origen.
+<div>
+
+<div>
+<p style = 'text-align:center;'>
+<img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/Contexto/plot3.png" width="480" height="380" />
+<div>
+
+---
+
+<div>
+<p style = 'text-align:justify;'>
+En este diagrama se muestra las diferencias con el día del mes en el eje horizontal y el año en el eje vertical, con un panel diferente para cada mes. Por lo tanto, cada celda de la siguiente figura corresponde a un determinado día de la serie temporal.
+<div>
+
+<div>
+<p style = 'text-align:center;'>
+<img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/Contexto/plot4.png" width="600" height="500" />
+<div>
+
+---
+
+### <span style="color:#FF7F00"> **El tiempo como condicionante o variable de agrupación**
+
+<div>
+<p style = 'text-align:justify;'>
+Acá se representa la relación entre las variables a través de las matrices de diagramas de dispersión. Se usa el tiempo como una variable de agrupación. Cada subtrama muestra la relación entre el par de variables en la intersección de la fila y la columna indicada por los nombres de las variables en los paneles diagonales.
+<div>
+
+<div>
+<p style = 'text-align:center;'>
+<img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/Contexto/plot5.png" width="600" height="500" />
+<div>
+
+---
+
+### <span style="color:#FF7F00"> **El tiempo como variable complementaria**
+
+<div>
+<p style = 'text-align:justify;'>
+En este gráfico el tiempo se utiliza como una variable complementaria que agrega información a un gráfico donde se enfrentan varias variables. Se representa con un gráfico de **Polilíneas** la evolución de la relación entre el ingreso nacional bruto (INB) y las emisiones de dióxido de carbono ((CO_2)) para un conjunto de países extraídos de la base de datos de datos abiertos del Banco Mundial. 
+<div>
+
+<div>
+<p style = 'text-align:center;'>
+<img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/Contexto/plot6.png" width="480" height="380" />
+<div>
