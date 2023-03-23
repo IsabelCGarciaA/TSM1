@@ -1,0 +1,169 @@
+---
+title: <span style="color:#034a94"> **Formato**
+author: " "
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+c1="034a94" #color naranja-primario
+c2="FF7F00" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+
+# <span style="color:#034a94"> **Introducción**
+
+Las series de tiempo son series de datos –en sentido estadístico: variables– ordenadas por orden temporal y con algún tipo de índice que indica el tiempo al que corresponde esa observación. La secuencia comúnmente se organiza en puntos de tiempo con una separación igual, en ese caso son series tiempo con intervalos iguales. Sin embargo, también son comunes las series de tiempo que tienen intervalos desiguales.  Por ejemplo, cuando el evento que se registra no ocurre con una periodicidad establecida (e.g. exportaciones de gas natural).
+
+
+### <span style="color:#FF7F00"> **Series de tiempo en años, semestres, trimestres, etc**
+
+En R expresamos una serie de tiempo con dos o más vectores, uno con el punto de tiempo y otro con el valor correspondiente. Es conveniente organizar estos vectores en una estructura $data.frame$, para asegurarnos que se mantengan alienados. 
+
+Idealmente el vector índice de tiempo debe tener una fecha -y hora, minutos, segundos si aplica- completa: año, mes, día con separadores claros, respetando el mismo formato a lo largo de toda la serie. Si la marca de tiempo tiene el formato correcto es posible hacer agregar datos con facilidad.
+
+
+### <span style="color:#FF7F00"> **library lubridate**
+
+La librería lubridate::, de Hadley Wickham, tiene funciones para el manejo de fechas. Como es de esperar funciona muy bien con dplyr:: y nos permite pasar los argumentos year(), month(), semester(), quarter(), week(), etc. a group_by(). La mayor dificultad es asegurarnos que el índice temporal es un objeto de la clase Date. 
+
+
+### <span style="color:#FF7F00"> **Algunos gráficos**
+
+Los gráficos específicos dependen de que la marca de tiempo de la serie temporal sea de la clase Date. 
+
+Alternativamente lubridate:: y dplyr:: aceptan el formato POSIXct, una especificación de formatos de fechas desarrollada para los sistemas operativos UNIX. Podemos pasar fácilmente de Date a POSIXct con as.Date() y as.POSIXct respectivamente.
+
+# <span style="color:#034a94"> **Clase para objetos fecha/hora**
+
+R dispone en su paquete base de dos clases específicamente diseñadas para tratar con datos de tipo fecha/hora: Date (solo para fechas) y POSIXt (además de la fecha incluye hora y huso horario); esta última clase contiene dos subclases, POSIXct y POSIXlt que se diferencian simplemente en la forma en que almacenan internamente la fecha y la hora. El paquete lubridate dispone de diversas funciones que facilitas la extracción de componentes de un objeto fecha/hora de clase POSIXct
+
+El término POSIX engloba a una colección de estándares de acceso a funciones del sistema operativo. Es un acrónimo de Portable Operating System Interface. La X procede del sistema operativo UNIX, si bien estos estándares son también válidos para otros sistemas. En R las clases POSIXct y POSIXlt hacen uso de estos estándares para acceder al almacenamiento de fechas y horas.
+
+Ambas clases POSIX almacenan una fecha y hora como el número de segundos transcurridos desde el 1 de enero de 1970. La clase POSIXct almacena internamente esta cifra como un número entero, mientras que la clase POSIXlt la descompone en una lista con elementos para los segundos, minutos, horas, día, mes y año. La clase Date, por su parte, almacena las fechas como el número de días transcurridos también desde el 1 de enero de 1870
+
+### <span style="color:#0EB0C6"> **Fechas: clase Date**
+
+La clase Date almacena sus valores internamente como el número de días transcurridos desde el 1 de enero de 1970; para las fechas anteriores el número de días se cuenta en sentido negativo.
+
+#### <span style="color:#-686868"> **Conversión de variables tipo carácter en fechas de la clase Date**
+Para crear una fecha en R el modo más sencillo es utilizar la función as.Date(). Esta función recibe como argumento un dato de fecha en modo carácter y la convierte a la clase Date. En esta clase, el estándar de fecha que se utiliza (en el que se leen y muestran las fechas si no se indica otra cosa) es “año-mes-día” (yyyy-mm-dd).
+
+Por ejemplo
+
+```{r}
+navidad=as.Date("2022-12-25")
+navidad
+class(navidad)
+```
+
+Si colocamos la fecha en otro formato (por ejemplo “dia/mes/año”), hemos de indicarlo al usar as.Date.
+
+Por ejemplo
+
+```{r}
+navidad=as.Date("25/12/2022",format="%d/%m/%Y")
+navidad
+```
+
+
+Esta conversión también funciona sobre vectores (siempre que estén codificados del mismo modo):
+
+```{r}
+dias=c("1/10/2005","2/2/2006","3/4/2007","8/11/208")
+dias
+as.Date(dias,format="%d/%m/%Y")
+
+```
+
+También uno podría convertir de fecha a character, donde el formato estándar de R (año-mes-dia)
+
+```{r}
+fNav1=as.character(navidad)
+fNav1
+```
+
+Si uno desea presentar la fecha como carácter en formatos distintos del estándar se puede usar
+
+```{r}
+as.character(navidad, format="%d %b. %Y")
+
+as.character(navidad, format="%A, %d de %B de %Y")
+
+as.character(navidad, format="%d/%m/%y")
+
+```
+
+#### <span style="color:#-686868"> **Símbolos para formato de fecha**
+
+%d	día (numérico, de 0 a 31)
+%a	día de la semana abreviado a tres letras
+%A	día de la semana (nombre completo)
+ 	 
+%m	mes (numérico de 0 a 12)
+%b	mes (nombre abreviado a tres letras)
+%B	mes (nombre completo)
+ 	 
+%y	año (con dos dígitos)
+%Y	año (con cuatro dígitos)
+
+Esta funcioens, operan también sobre vectores
+
+```{r}
+fechas=as.Date(c("1/10/2005","2/2/2006","3/4/2007","8/11/2008"))
+format(fechas,"%B")
+```
+
+# <span style="color:#034a94"> **Codificación interna de objetos de clase Date**
+
+La función unclass() nos muestra la representación interna de un objeto en R. Para un objeto de la clase Date, recordemos que la representación consiste en el número de días transcurridos desde el 1/1/1970:
+
+```{r}
+unclass(as.Date("1970-1-1"))
+unclass(as.Date("1970-1-10"))
+unclass(as.Date("1969-12-20"))
+```
+
+### <span style="color:#0EB0C6"> **Operaciones con variables de clase Date**
+
+#### <span style="color:#-686868"> **Diferencia de fechas**
+
+Si se restan dos variables de clase Date, R nos devuelve la diferencia en días:
+```{r}
+dia1=as.Date("25/12/2022",format="%d/%m/%Y")
+dia2=as.Date("20/1/2021",format="%d/%m/%Y")
+dia3=as.Date("25/12/2019",format="%d/%m/%Y")
+dia2-dia1
+dia3-dia1
+```
+
+podemos calcular la diferencia en otras unidades
+```{r}
+difftime(dia3, dia1, units = "weeks")
+difftime(dia3, dia1, units = "days")
+difftime(dia3, dia1, units = "hours")
+difftime(dia3, dia1, units = "mins")
+difftime(dia3, dia1, units = "secs")
+```
+
+
+### <span style="color:#0EB0C6"> **Uso de lubridate**
+
+```{r}
+library(lubridate)
+
+d1<-'2022-08-23 17:55:02'
+d1
+```
+
+```{r}
+ymd_hms(d1)
+```
+
+
+
+
+
