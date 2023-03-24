@@ -1,0 +1,259 @@
+---
+title: <span style="color:#034a94"> **IMAE-Valle**
+author: "  "
+date: "  "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+c1="034a94" #color naranja-primario
+c2="FF7F00" #color azul oscuro-secundario
+c3="0EB0C6" #color azul claro-terciario
+c4="-686868" #color gris-texto
+```
+
+# <span style="color:#034a94"> **Algunas librerias**
+
+```{r}
+library(forecast)
+library(tseries)
+library(timsac)
+library(ggplot2)
+library(changepoint)
+library(readxl)
+```
+
+Los datos de series temporales pueden exhibir una variedad de patrones y, frecentemente, es útil dividir una serie temporal en varios componentes, cada uno de los cuales representa una categoría de patrón subyacente.
+
+
+# <span style="color:#034a94"> **Datos IMAE** 
+
+<https://www2.javerianacali.edu.co/facultades/ciencias-economicas-y-administrativas/imae#gsc.tab=0>
+
+```{r}
+library(readxl)
+Datos <- read_excel("C:/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 3/Insumos/2. Experiencia/Base IMAE VALLE.xlsx")
+```
+
+Los datos tenían dos columnas pero solo queremos de la Datos$IMAE-Valle y convertimos los datos a formato de serie de tiempo, inica el día 84 del año 2019
+
+```{r} 
+Indice.ts<-ts(Datos$`IMAE Valle` , start = c(2002,1), frequency = 12)
+(Indice.ts)
+```
+
+Graficamos la serie (esto ya estaba antes y con versiones más bonitas...esta no tiene formato)
+
+```{r}
+plot(Indice.ts, main=" ", ylab="valor", col="deepskyblue", xlab="Años")
+title(main="Valores mensuales del índice IMAE")
+#Revisamos que si sea de la clase ts (serie de tiempo): innecesario
+class(Indice.ts)
+#Corroboramos el inicio de la serie:  innecesario
+start(Indice.ts)
+#Corroboramos el final de la serie:  innecesario
+end(Indice.ts)
+#Estabilizar la varianza (no tiene mucho sentido en este caso)
+#tra1<-log(Indice.ts)
+#plot(tra1)
+```
+
+
+Verificamos que sea ESTACIONARIA (Dicker-Fuller 'adf.test'), si no lo es, entonces no podemos pronosticar más adelante usando modelos estacionarios.
+
+```{r}
+adf.test(Indice.ts,, alternative = c("stationary", "explosive"))
+```
+
+Recordemos que si el valor $p$ es menor que $0.05$ es estacionaria, en este caso NO es estacionaria.  Pensando en un nivel de significancia del $5%$
+
+
+De nuevo, verifiquemos el número de veces que debemos diferenciar para tener la estacionariedad
+
+```{r}
+ndiffs(Indice.ts)
+```
+
+Nos indica que $1$ así que diferenciamos una vez y renombramos a dif.Indice.ts
+
+```{r}
+dif.Indice.ts<-diff(Indice.ts)
+plot(dif.Indice.ts, main=" ", ylab="valor", col="deepskyblue", xlab="Años")
+title(main="DIF del valor mensual del índice IMAE ")
+```
+
+Volvemos a probar si es estacionaria
+
+```{r}
+adf<-adf.test(dif.Indice.ts)
+adf
+```
+
+
+## <span style="color:#FF7F00"> **Funciones acf y pacf**
+
+```{r}
+library(ggplot2)
+ACF<-acf(dif.Indice.ts)
+PACF<-pacf(dif.Indice.ts)
+autoplot(stl(dif.Indice.ts, s.window = "periodic"), ts.colour = "blue")
+```
+
+# <span style="color:#034a94"> **Modelo ¿ARIMA?**
+
+Ahora, aplicamos la función auto.arima la cual nos encontraría un modelo de ajuste eficiente.  En este caso, es  ARIMA(0,0,3)(0,0,1)[12] 
+
+```{r}
+modelo<-auto.arima(dif.Indice.ts)
+modelo
+```
+
+## <span style="color:#FF7F00"> **Observación 1**
+Este es el modelo SARIMA, del cual hablaremos en la siguiente sesión.  En este momento, no nos interesa el modelo sino que el metodo si detecte el cambio estructral.
+
+## <span style="color:#FF7F00"> **Observación 2**
+Atención en python
+
+''from pyramid.arima import auto_arima
+model = auto_arima(...)''
+
+
+# <span style="color:#034a94"> **Punto de Cambio**
+
+Ahora nos interesa detectar los puntos de cambio de la serie.  En R hay varias funcione sen el paquete change.point.  La función se llama cpt.mean y detecta un punto de cambio en la media
+
+```{r}
+mval<-cpt.mean(dif.Indice.ts,method = "AMOC") 
+cpts(mval)
+```
+
+### <span style="color:#0EB0C6"> **Gráfica del punto de cambio**
+
+```{r}
+plot(mval, type = "l", cpt.col = "blue", cpt.width = 2, main=" ", ylab="valor", col="deepskyblue", xlab="Años")
+title(main="Cambio DIF valores mensuales del índice IMAE")
+```
+
+# <span style="color:#034a94"> **Predicción** 
+
+En este caso, hacemos la predicción de $6$ días, pero uno puede predecir cuantos uno quiera...
+
+```{r}
+pred<-forecast(dif.Indice.ts,h=6)
+pred
+```
+
+# No todo los valores caen ya que hubo bloqueo, volvemos y lo hacemos con 3
+
+
+```{r}
+pred<-forecast(dif.Indice.ts,h=3)
+pred
+```
+
+```{r}
+plot(pred, main=" ", ylab="valor", col="deepskyblue", xlab="Años")
+title(main="Predicción DIF valores mensuales del IMAE")
+```
+
+## <span style="color:#FF7F00"> **Observacion 3**:  recuerde que este es el valor predicho de la diferencia
+
+
+# <span style="color:#034a94"> **Validación**
+
+Con esta otra libreria, se pude hacer validación, por ejemplo, detección de outliers.
+
+```{r}
+library("tsoutliers")
+dat.ts<- ts(dif.Indice.ts,frequency=1)
+data.ts.outliers <- tso(dat.ts)
+data.ts.outliers
+plot(data.ts.outliers)
+```
+
+
+# <span style="color:#034a94"> **Supuestos de una ARIMA**
+
+Aunque en este caso, sabemos que el modelo no es un ARIMA, vamos a suponer que lo es y verifiquemos los supuestos
+
+## <span style="color:#FF7F00"> **Media cero de los residuos**
+
+Primero vamos a ver si la media de los residuos es cero, aplicamos la prueba $t.test$ para evaluar 
+
+```{r}
+mr<-modelo$residuals # estos son los residuos del modelo
+t.test(mr, alternative='two.sided',
+       conf.level=0.95, mu=0)
+```
+
+Como el valor-P es 0.6984 y mayor que el nivel de significancia 5%, no se rechaza la hipótesis nula, es decir, que la media de los residuos es cero.
+
+## <span style="color:#FF7F00"> **Independencia de los residuos** 
+
+Segundo vamos a evaluar la independencia de los residuos 
+
+```{r}
+independencia <- Box.test(mr, type="Ljung-Box") # Test de Ljung-Box
+independencia$p.value
+```
+
+Como valor $p$ no es menor que $alpha4, no se rechaza $H_0$, osea que son independienets los residuos
+
+### <span style="color:#0EB0C6"> **¿Distribución?**
+
+Primero ver si se ajustan graficamente a una normal (deberían quedar todos los puntos sobre la linea, pero esto sólo es visual) pero si es una distribución simétrica
+
+```{r}
+
+qqnorm(mr, col = "blue")
+qqline(mr, col = "red")
+```
+
+así que sigue mirar a través de una prueba, shapiro y tampoco es normal pero esa no es una condición absolutamente necesaria.
+
+En esta primera prueba vemos que el componente estocástico (los residuos) no está normalmente distribuido por lo que se rechaza la hipótesis nula ya que el valor P es de: 2.2e-16
+
+
+```{r}
+shapiro.test(mr)
+```
+
+```{r}
+library(car)
+qqPlot(mr)
+```
+
+Se busca cual es la distribución de ajuste y se intenta la t-distribution ya que es la más parecida visualmente
+
+```{r}
+library(fitdistrplus)
+library(moments)
+library(MASS)
+library(fGarch)
+summary(mr)
+skewness(mr)
+kurtosis(mr)
+ec<-ecdf(mr)
+plot(ec)
+hist(mr)
+mr<-as.numeric(mr)
+#descdist(mr)
+stdFit(mr)
+
+#ajust<-fitdistr(mr, "t", start = list(m=mean(mr),s=sd(mr), df=2.2), lower=c(-1, 0.001,1))
+#summary(ajust)
+#(ajust$estimate)
+length(mr)
+```
+
+y ahora vuelve y se genera una funcion de distribucion empirica que sirve para ver si se se ajuta la t-student
+
+```{r}
+x <- seq( -100, 100, by = 0.01)
+ed<-ecdf(rt(x,df=2.2))
+plot(ed)
+
+```
+
