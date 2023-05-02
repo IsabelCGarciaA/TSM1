@@ -65,7 +65,7 @@ Estos gráficos consisten en representar las variables a lo largo del tiempo por
 
 <div>
 <p style = 'text-align:center;'>
-<img src="/Users/isabel.garcia/OneDrive - PUJ Cali/Desktop/Diseño/Diseño/Modulo 1/Unidad 2/Insumos/1. Contexto/Contexto/plot1.png" width="420" height="320" />
+<img src="./plot1.png" width="420" height="320" />
 <div>
 
 ---
